@@ -35,24 +35,32 @@ namespace biometrics_4
                 "schwarzenegger", "stallone", "willis"};
 
             bool initialize();
+            bool constructPcaData();
             cv::Mat constructMat(const types::MatDimension &images);
             cv::Mat constructMat(const cv::Mat &image);
             cv::Mat constructMat();
 
             Pca& operator=(const Pca&);
             Pca(const Pca&);
+            
         public:
             Pca(const types::uintf train_size, const types::uintf test_size) :
                         _test_size(test_size),
                         _train_size(train_size),
                         _data_size(test_size + train_size),
-                        _components(5)
+                        _components(0)
             {
                 _is_valid = initialize();
             };
-            inline bool isValid() const { return _is_valid; }
-            inline void setComponents(types::uintf num) { _components = num; }
+
             void randomize();
+            inline bool isValid() const { return _is_valid; }
+            inline const types::PcaData &getPcaData() { return _pca_data; }
+            inline void setComponents(types::uintf num)
+            {
+                _components = num;
+                _is_valid = constructPcaData();
+            }
         };
     }
 }

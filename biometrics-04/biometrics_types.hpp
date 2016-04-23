@@ -36,6 +36,19 @@ namespace biometrics_4
             
             MatDimension        train_projections;
             VecOfMatDimension   test_projections;
+            UintfDimension      labels;
+
+            void reset()
+            {
+                mean.release();
+                eigenvalues.release();
+                eigenvectors.release();
+                train_projections.clear();
+                test_projections.clear();
+                labels.clear();
+            }
+        private:
+            PcaData& operator=(const PcaData&);
         };
     }
 }

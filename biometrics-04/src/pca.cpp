@@ -21,7 +21,7 @@ namespace biometrics_4
         {
             _train_images.clear();
             _test_images.clear();
-            initialize();
+            _is_valid = initialize();
         }
 
         bool Pca::initialize()
@@ -59,7 +59,12 @@ namespace biometrics_4
                     _test_images.push_back(test_data);
                 }
             }
+            
+            return true;
+        }
 
+        bool Pca::constructPcaData()
+        {
             Mat data = constructMat();
             uintf rows = data.rows;
 
@@ -70,7 +75,8 @@ namespace biometrics_4
 
             cv::PCA pca(data, Mat(), cv::PCA::DATA_AS_ROW, static_cast<int>(_components));
 
-            _pca_data.mean = pca.mean.reshape(1,1);
+            _pca_data.reset();
+            _pca_data.mean = pca.mean.clone().reshape(1,1);
             _pca_data.eigenvalues = pca.eigenvalues.clone();
             cv::transpose(pca.eigenvectors, _pca_data.eigenvectors);
 
@@ -90,6 +96,8 @@ namespace biometrics_4
                 }
                 _pca_data.test_projections.push_back(projections);
             }
+
+            _pca_data.labels = _labels;
 
             return true;
         }
