@@ -19,7 +19,11 @@ namespace biometrics_4
         {
             class Svm
             {
-                
+                const types::PcaData *_data;
+
+            public:
+                Svm(const types::PcaData *data) : _data(data) {}
+                double classify(types::uintf components);
             };
         }
     }
