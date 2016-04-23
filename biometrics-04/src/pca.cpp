@@ -110,13 +110,13 @@ namespace biometrics_4
         Mat Pca::constructMat(const MatDimension &images)
         {
 
-            Mat dst(static_cast<int>(images.size()), images[0].rows * images[0].cols, CV_32F);
+            Mat dst(static_cast<int>(images.size()), images[0].rows * images[0].cols, CV_32FC1);
 
             for(uintf i = 0; i < images.size(); i++)
             {
                 Mat image_row = images[i].clone().reshape(1, 1);
                 Mat row_i = dst.row(i);
-                image_row.convertTo(row_i, CV_32F);
+                image_row.convertTo(row_i, CV_32FC1, 1/255.);
             }
 
             return dst;
@@ -124,10 +124,10 @@ namespace biometrics_4
 
         Mat Pca::constructMat(const cv::Mat &image)
         {
-            Mat dst(1, image.rows * image.cols, CV_32F);
+            Mat dst(1, image.rows * image.cols, CV_32FC1);
             Mat image_row = image.clone().reshape(1, 1);
             Mat row_i = dst.row(0);
-            image_row.convertTo(row_i, CV_32F);
+            image_row.convertTo(row_i, CV_32FC1, 1/255.);
             return dst;
         }
     }
