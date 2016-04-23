@@ -21,22 +21,16 @@ namespace biometrics_4
                 if (_data->train_projections.empty()) return -1;
 
                 uintf predictions = 0;
-
+                uintf total_comparsions = 0;
                 for (uintf i = 0; i < _data->test_projections.size(); i++)
                 {
                     for (const auto &projection : _data->test_projections[i])
                     {
+                        total_comparsions++;
                         if (predict(projection) == i)
                             predictions++;
                     }
                 }
-                
-                size_t total_comparsions = 0;
-                if (!_data->test_projections.empty())
-                    total_comparsions = _data->test_projections.size() *
-                                        _data->test_projections[0].size();
-                else
-                    return -1;
 
                 return (static_cast<double>(predictions * 100) / total_comparsions);
             }
