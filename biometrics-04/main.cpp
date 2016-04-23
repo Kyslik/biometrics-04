@@ -7,9 +7,14 @@
 //
 
 #include <iostream>
-#include <opencv2/opencv.hpp>
+#include "pca.hpp"
 
-int main(int argc, const char * argv[]) {
-    std::cout << CV_VERSION << std::endl;
+const biometrics_4::types::uintf TRAIN_SIZE = 10;
+const biometrics_4::types::uintf TEST_SIZE = 2;
+
+int main(int argc, const char * argv[])
+{
+    biometrics_4::pca::Pca p(TRAIN_SIZE, TEST_SIZE);
+
     return 0;
 }
