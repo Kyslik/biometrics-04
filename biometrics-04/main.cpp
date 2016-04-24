@@ -17,8 +17,8 @@
 
 const biometrics_4::types::uintf TRAIN_SIZE = 10;
 const biometrics_4::types::uintf TEST_SIZE = 2;
-const biometrics_4::types::uintf CROSS_VALIDATION = 10;
-const biometrics_4::types::uintf MAX_PCA_COMPONENTS = 10;
+const biometrics_4::types::uintf CROSS_VALIDATION = 15;
+const biometrics_4::types::uintf MAX_PCA_COMPONENTS = 60;
 
 
 biometrics_4::types::DoubleDimension calculateMean(const biometrics_4::types::DoubleMatrix &matrix);
@@ -30,8 +30,8 @@ int main(int argc, const char * argv[])
     using namespace types;
 
     DoubleMatrix euclids(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
-    //DoubleMatrix svms(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
-    //DoubleMatrix mahals(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
+    DoubleMatrix svms(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
+    DoubleMatrix mahals(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
 
     biometrics_4::pca::Pca pca(TRAIN_SIZE, TEST_SIZE);
     const PcaData &pca_data = pca.getPcaData();
@@ -47,15 +47,31 @@ int main(int argc, const char * argv[])
             pca.setComponents(j);
 
             euclids[i][j - 1]  = euclid.classify();
-            //svms[i][j - 1]     = svm.classify();
-            //mahals[i][j - 1]   = mahalanobis.classify();
+            svms[i][j - 1]     = svm.classify();
+            mahals[i][j - 1]   = mahalanobis.classify();
         }
         pca.randomize();
     }
 
-    DoubleDimension euclidean_distance = calculateMean(euclids);
+    DoubleDimension euclidean_classifier    = calculateMean(euclids);
+    DoubleDimension svm_classifier          = calculateMean(svms);
+    DoubleDimension mahalanobis_classifier  = calculateMean(mahals);
 
-    for (const auto &item : euclidean_distance)
+    for (const auto &item : euclidean_classifier)
+    {
+        std::cout << item << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    for (const auto &item : svm_classifier)
+    {
+        std::cout << item << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    for (const auto &item : mahalanobis_classifier)
     {
         std::cout << item << std::endl;
     }
