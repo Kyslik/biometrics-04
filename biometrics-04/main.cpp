@@ -7,8 +7,6 @@
 //
 
 #include <iostream>
-#include <ctime>
-
 
 #include "mahalanobis_distance.hpp"
 #include "euclidean_distance.hpp"
@@ -86,7 +84,9 @@ biometrics_4::types::DoubleDimension calculateMean(const biometrics_4::types::Do
 
     if (CROSS_VALIDATION == 0)
         return matrix[0];
+
     DoubleDimension dst(MAX_PCA_COMPONENTS, 0.0);
+
     for (const auto &vec : matrix)
     {
         uintf i = 0;
@@ -98,8 +98,7 @@ biometrics_4::types::DoubleDimension calculateMean(const biometrics_4::types::Do
     }
 
     for (auto &item : dst)
-    {
         item /= CROSS_VALIDATION;
-    }
+
     return dst;
 }
