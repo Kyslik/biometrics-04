@@ -7,7 +7,8 @@
 //
 
 #include "euclidean_distance.hpp"
-#include <opencv2/ml.hpp>
+
+#include <opencv2/core.hpp>
 
 namespace biometrics_4
 {
@@ -16,6 +17,7 @@ namespace biometrics_4
         namespace euclid
         {
             using types::uintf;
+            
             double EuclidDistance::classify()
             {
                 if (_data->train_projections.empty()) return -1;

@@ -27,7 +27,7 @@ namespace biometrics_4
                 for (uintf i = 0; i < train_size; i++)
                 {
                     _data->train_projections[i].row(0).copyTo(train_data.row(i));
-                    label_data.at<int>(i, 0) =  _data->labels[i];
+                    label_data.at<int>(i, 0) = _data->labels[i];
                 }
 
                 cv::Ptr<cv::ml::SVM> svm = cv::ml::SVM::create();
