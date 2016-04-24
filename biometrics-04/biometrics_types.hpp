@@ -22,6 +22,9 @@ namespace biometrics_4
         typedef uint_fast32_t uintf;
         typedef uint_fast16_t uintf16;
 
+        typedef std::vector<double> DoubleDimension;
+        typedef std::vector<DoubleDimension> DoubleMatrix;
+
         typedef std::vector<uintf> UintfDimension;
         typedef std::vector<std::string> StringDimension;
 

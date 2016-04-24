@@ -15,62 +15,75 @@
 #include "svm.hpp"
 #include "pca.hpp"
 
-#include <opencv2/core.hpp>
-
 const biometrics_4::types::uintf TRAIN_SIZE = 10;
 const biometrics_4::types::uintf TEST_SIZE = 2;
+const biometrics_4::types::uintf CROSS_VALIDATION = 10;
+const biometrics_4::types::uintf MAX_PCA_COMPONENTS = 10;
+
+
+biometrics_4::types::DoubleDimension calculateMean(const biometrics_4::types::DoubleMatrix &matrix);
 
 int main(int argc, const char * argv[])
 {
     using namespace biometrics_4;
     using namespace classifier;
-    std::vector<double> euclids, svms;
+    using namespace types;
 
-
-//    cv::Mat tst(4, 3, CV_32FC1);
-//    cv::Mat t;
-//    tst.row(0).col(0) = 5;
-//    tst.row(0).col(1) = 2;
-//    tst.row(0).col(2) = 8;
-//
-//    tst.row(1).col(0) = 8;
-//    tst.row(1).col(1) = 6;
-//    tst.row(1).col(2) = 3;
-//
-//    tst.row(2).col(0) = 11;
-//    tst.row(2).col(1) = 2;
-//    tst.row(2).col(2) = 7;
-//
-//    tst.row(3).col(0) = 2;
-//    tst.row(3).col(1) = 1;
-//    tst.row(3).col(2) = 9;
-//
-//    std::cout << tst << std::endl;
-//    cv::reduce(tst, t, 0, CV_REDUCE_AVG);
-//    std::cout << t << std::endl;
+    DoubleMatrix euclids(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
+    //DoubleMatrix svms(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
+    //DoubleMatrix mahals(CROSS_VALIDATION, DoubleDimension(MAX_PCA_COMPONENTS, 0.0));
 
     biometrics_4::pca::Pca pca(TRAIN_SIZE, TEST_SIZE);
-    const types::PcaData &pca_data = pca.getPcaData();
+    const PcaData &pca_data = pca.getPcaData();
     
     euclid::EuclidDistance euclid(&pca_data);
     svm::Svm svm(&pca_data);
     mahalanobis::Mahalanobis mahalanobis(&pca_data);
-    //size_t start = 0, end = 0;
 
-//    for (types::uintf i = 1; i <= 60; i++)
-    for (const auto &i : {1, 10, 15, 20, 25, 30, 45, 50, 55, 60})
+    for (uintf i = 0; i < CROSS_VALIDATION; i++)
     {
-        //start = clock();
-        pca.setComponents(i);
-        //end = clock();
-        //std::cout << (end - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
-        svms.push_back(mahalanobis.classify());
+        for (uintf j = 1; j <= MAX_PCA_COMPONENTS; j++)
+        {
+            pca.setComponents(j);
+
+            euclids[i][j - 1]  = euclid.classify();
+            //svms[i][j - 1]     = svm.classify();
+            //mahals[i][j - 1]   = mahalanobis.classify();
+        }
+        pca.randomize();
     }
 
-    for (const auto &e : svms)
+    DoubleDimension euclidean_distance = calculateMean(euclids);
+
+    for (const auto &item : euclidean_distance)
     {
-        std::cout << e << std::endl;
+        std::cout << item << std::endl;
     }
 
     return 0;
+}
+
+biometrics_4::types::DoubleDimension calculateMean(const biometrics_4::types::DoubleMatrix &matrix)
+{
+    using biometrics_4::types::DoubleDimension;
+    using biometrics_4::types::uintf;
+
+    if (CROSS_VALIDATION == 0)
+        return matrix[0];
+    DoubleDimension dst(MAX_PCA_COMPONENTS, 0.0);
+    for (const auto &vec : matrix)
+    {
+        uintf i = 0;
+        for (const auto &item : vec)
+        {
+            dst[i] += item;
+            i++;
+        }
+    }
+
+    for (auto &item : dst)
+    {
+        item /= CROSS_VALIDATION;
+    }
+    return dst;
 }
