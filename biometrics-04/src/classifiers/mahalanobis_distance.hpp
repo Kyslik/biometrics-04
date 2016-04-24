@@ -10,7 +10,7 @@
 #define mahalanobis_distance_hpp
 
 #include "biometrics_types.hpp"
-#include <iostream>
+
 namespace biometrics_4
 {
     namespace classifier
