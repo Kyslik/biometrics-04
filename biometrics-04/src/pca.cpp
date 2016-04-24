@@ -110,7 +110,7 @@ namespace biometrics_4
         Mat Pca::constructMat(const MatDimension &images)
         {
 
-            Mat dst(static_cast<int>(images.size()), images[0].rows * images[0].cols, CV_32FC1);
+            Mat dst(static_cast<uintf>(images.size()), images[0].rows * images[0].cols, CV_32FC1);
 
             for(uintf i = 0; i < images.size(); i++)
             {
