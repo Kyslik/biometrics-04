@@ -21,6 +21,7 @@ namespace biometrics_4
         {
             _train_images.clear();
             _test_images.clear();
+            _labels.clear();
             _is_valid = initialize();
         }
 
