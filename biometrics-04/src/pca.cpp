@@ -124,11 +124,7 @@ namespace biometrics_4
 
         Mat Pca::constructMat(const cv::Mat &image)
         {
-            Mat dst(1, image.rows * image.cols, CV_32FC1);
-            Mat image_row = image.clone().reshape(1, 1);
-            Mat row_i = dst.row(0);
-            image_row.convertTo(row_i, CV_32FC1, 1/255.);
-            return dst;
+            return constructMat(types::MatDimension(1, image));
         }
     }
 }
