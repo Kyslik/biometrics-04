@@ -551,11 +551,8 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-lopencv_core",
-					"-lopencv_features2d",
-					"-lopencv_imgcodecs",
-					"-lopencv_imgproc",
 					"-lopencv_ml",
-					"-lopencv_photo",
+					"-lopencv_imgcodecs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -569,11 +566,8 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-lopencv_core",
-					"-lopencv_features2d",
-					"-lopencv_imgcodecs",
-					"-lopencv_imgproc",
 					"-lopencv_ml",
-					"-lopencv_photo",
+					"-lopencv_imgcodecs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
