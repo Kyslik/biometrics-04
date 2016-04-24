@@ -83,6 +83,7 @@
 		50AFA0E41CCBB1A100E6608F /* euclidean_distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AFA0E21CCBB1A100E6608F /* euclidean_distance.cpp */; };
 		50AFA0E71CCBD89800E6608F /* svm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AFA0E51CCBD89800E6608F /* svm.cpp */; };
 		50E0B2181CC805AC00A07177 /* pca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50E0B2161CC805AC00A07177 /* pca.cpp */; };
+		50FD77621CCCCA19005A02E0 /* mahalanobis_distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FD77601CCCCA19005A02E0 /* mahalanobis_distance.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -252,6 +253,8 @@
 		50E0B2631CC80A0D00A07177 /* willis_10.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = willis_10.bmp; sourceTree = "<group>"; };
 		50E0B2641CC80A0D00A07177 /* willis_11.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = willis_11.bmp; sourceTree = "<group>"; };
 		50E0B2651CC80A0D00A07177 /* willis_12.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = willis_12.bmp; sourceTree = "<group>"; };
+		50FD77601CCCCA19005A02E0 /* mahalanobis_distance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mahalanobis_distance.cpp; path = src/classifiers/mahalanobis_distance.cpp; sourceTree = "<group>"; };
+		50FD77611CCCCA19005A02E0 /* mahalanobis_distance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mahalanobis_distance.hpp; path = src/classifiers/mahalanobis_distance.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +303,8 @@
 				50AFA0E31CCBB1A100E6608F /* euclidean_distance.hpp */,
 				50AFA0E51CCBD89800E6608F /* svm.cpp */,
 				50AFA0E61CCBD89800E6608F /* svm.hpp */,
+				50FD77601CCCCA19005A02E0 /* mahalanobis_distance.cpp */,
+				50FD77611CCCCA19005A02E0 /* mahalanobis_distance.hpp */,
 			);
 			name = classifiers;
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 			files = (
 				50E0B2181CC805AC00A07177 /* pca.cpp in Sources */,
 				503C70031CC565FA0066B4F8 /* main.cpp in Sources */,
+				50FD77621CCCCA19005A02E0 /* mahalanobis_distance.cpp in Sources */,
 				50AFA0E71CCBD89800E6608F /* svm.cpp in Sources */,
 				50AFA0E41CCBB1A100E6608F /* euclidean_distance.cpp in Sources */,
 			);
