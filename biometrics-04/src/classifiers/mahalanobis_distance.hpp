@@ -10,7 +10,7 @@
 #define mahalanobis_distance_hpp
 
 #include "biometrics_types.hpp"
-
+#include <iostream>
 namespace biometrics_4
 {
     namespace classifier
@@ -20,7 +20,12 @@ namespace biometrics_4
             class Mahalanobis
             {
                 const types::PcaData *_data;
-                int predict(const cv::Mat &projection);
+                types::MatDimension _class_projections;
+                types::MatDimension _mean_projections;
+
+                void constructClassPredictions();
+                int predict(const cv::Mat &projection) const;
+                double calculate(const cv::Mat &projection, const types::uintf class_id) const;
 
             public:
                 Mahalanobis(const types::PcaData *data) : _data(data) {}
