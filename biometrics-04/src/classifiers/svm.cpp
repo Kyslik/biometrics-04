@@ -17,10 +17,12 @@ namespace biometrics_4
         {
             using types::uintf;
 
-            double Svm::classify(uintf components)
+            double Svm::classify()
             {
                 if (_data->train_projections.empty()) return -1;
                 uintf train_size = static_cast<uintf>(_data->train_projections.size());
+                uintf components = _data->eigenvalues.rows;
+                
                 cv::Mat train_data(train_size, components, CV_32FC1);
                 cv::Mat label_data(train_size, 1, CV_32SC1);
 

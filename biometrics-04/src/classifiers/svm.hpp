@@ -23,7 +23,7 @@ namespace biometrics_4
 
             public:
                 Svm(const types::PcaData *data) : _data(data) {}
-                double classify(types::uintf components);
+                double classify();
             };
         }
     }
